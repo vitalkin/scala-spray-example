@@ -1,3 +1,5 @@
+package vs.spray.example
+
 import scala.collection.mutable.HashMap
 
 case class Entry(val text: String, val timestamp: Long)

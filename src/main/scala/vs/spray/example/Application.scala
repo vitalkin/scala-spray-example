@@ -1,3 +1,5 @@
+package vs.spray.example
+
 import akka.actor.{Props, ActorSystem}
 import akka.io.IO
 import akka.util.Timeout

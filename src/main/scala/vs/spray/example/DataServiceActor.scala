@@ -1,3 +1,5 @@
+package vs.spray.example
+
 import akka.actor.{ActorRefFactory, Actor}
 import spray.http.MediaTypes._
 import spray.http.StatusCodes
