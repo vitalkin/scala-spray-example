@@ -1,22 +1,23 @@
 package vs.spray.example
 
-import scala.collection.mutable.HashMap
+import scala.collection.mutable
 
 case class Entry(val text: String, val timestamp: Long)
 
-trait TaskRepository {
+trait DataRepository {
 
-  val dataSource = HashMap[Int, Entry]()
+  private val dataSource = mutable.HashMap[Int, Entry]()
 
-  def findAllTasks: Iterator[(Int, Entry)] = {
+  def findAllEntries: Iterator[(Int, Entry)] = {
     dataSource.iterator
   }
 
-  def addTask(text: String): Unit = {
-    dataSource += (dataSource.size + 1 -> Entry(text, System.currentTimeMillis()))
+  def addEntry(text: String): Unit = {
+    val max = if (dataSource.isEmpty) 0 else dataSource.maxBy(_._1)._1
+    dataSource += (max + 1 -> Entry(text, System.currentTimeMillis()))
   }
 
-  def removeTask(id: Int): Unit = {
+  def removeEntry(id: Int): Unit = {
     dataSource.remove(id)
   }
 

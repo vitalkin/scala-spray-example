@@ -5,20 +5,20 @@ import spray.http.MediaTypes._
 import spray.http.StatusCodes
 import spray.routing.HttpService
 
-class DataServiceActor extends Actor with HttpService with TaskRepository with TemplateRenderer {
+class DataServiceActor extends Actor with HttpService with DataRepository with TemplateRenderer {
 
   override implicit def actorRefFactory: ActorRefFactory = context
 
   implicit val system = context.system
 
-  override def receive: Receive = runRoute(taskRoutes)
+  override def receive: Receive = runRoute(defaultRoute)
 
-  val taskRoutes = {
+  val defaultRoute = {
     path("") {
       get {
         respondWithMediaType(`text/html`) {
           complete {
-            renderTasks(findAllTasks)
+            renderData(findAllEntries)
           }
         }
       }
@@ -26,14 +26,14 @@ class DataServiceActor extends Actor with HttpService with TaskRepository with T
     path("add") {
       post {
         formFields('description) { description =>
-          addTask(description)
+          addEntry(description)
           redirect("/", StatusCodes.Found)
         }
       }
     } ~
     path("remove" / IntNumber) { id =>
       get {
-        removeTask(id)
+        removeEntry(id)
         redirect("/", StatusCodes.Found)
       }
     }

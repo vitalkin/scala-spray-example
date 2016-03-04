@@ -5,7 +5,7 @@ import java.util.Date
 
 trait TemplateRenderer {
 
-  def renderTasks(tasks: Iterator[(Int, Entry)]) = {
+  def renderData(tasks: Iterator[(Int, Entry)]) = {
     <html>
       <body>
         <form action="add" method="post">
